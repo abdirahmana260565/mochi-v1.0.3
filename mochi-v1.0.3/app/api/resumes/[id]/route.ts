@@ -1,2 +1,0 @@
-import {NextResponse} from 'next/server'; import {getCurrentUser} from '../../../../lib/auth'; import {prisma} from '../../../../lib/prisma';
-export async function DELETE(_:Request,{params}:{params:Promise<{id:string}>}){const u=await getCurrentUser();if(!u)return NextResponse.json({error:'UNAUTHORIZED'},{status:401});const {id}=await params;const row=await prisma.resume.findFirst({where:{id,userId:u.id}});if(!row)return NextResponse.json({error:'NOT_FOUND'},{status:404});await prisma.resume.delete({where:{id}});return NextResponse.json({ok:true});}
